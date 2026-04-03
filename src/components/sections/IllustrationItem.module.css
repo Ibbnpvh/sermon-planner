@@ -1,0 +1,37 @@
+.item {
+  animation: fadeInUp 0.2s ease;
+}
+
+.linkRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.linkLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--navy);
+  white-space: nowrap;
+}
+
+.linkSelect {
+  flex: 1;
+  min-width: 180px;
+  padding: 7px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--white);
+  font-size: 0.88rem;
+  color: var(--black);
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.linkSelect:focus {
+  border-color: var(--gold);
+}

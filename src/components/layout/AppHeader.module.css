@@ -1,0 +1,132 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: linear-gradient(135deg, var(--navy) 0%, #253460 100%);
+  border-bottom: 3px solid var(--gold);
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 12px rgba(26, 39, 68, 0.3);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cross {
+  font-size: 1.8rem;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.title {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--off-white);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.subtitle {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--light-gold);
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btnSecondary,
+.btnPrimary,
+.btnDanger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.btnSecondary {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--off-white);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+}
+
+.btnSecondary:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.btnPrimary {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+.btnPrimary:hover:not(:disabled) {
+  background: #d4b660;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(201, 168, 76, 0.4);
+}
+
+.btnDanger {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffb3b3;
+  border: 1.5px solid rgba(255, 100, 100, 0.3);
+  padding: 8px 12px;
+}
+
+.btnDanger:hover {
+  background: rgba(255, 100, 100, 0.15);
+}
+
+.btnSecondary:disabled,
+.btnPrimary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 16px;
+  }
+  .subtitle {
+    display: none;
+  }
+  .btnSecondary span:first-child,
+  .btnPrimary span:first-child {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .actions {
+    gap: 6px;
+  }
+  .btnSecondary,
+  .btnPrimary {
+    padding: 7px 10px;
+    font-size: 0.78rem;
+  }
+}
