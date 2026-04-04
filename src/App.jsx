@@ -1,3 +1,4 @@
+import { LibraryProvider } from './context/LibraryContext'
 import { SermonProvider } from './context/SermonContext'
 import { AppHeader } from './components/layout/AppHeader'
 import { Sidebar } from './components/layout/Sidebar'
@@ -34,10 +35,12 @@ function FormContent() {
 
 export default function App() {
   return (
-    <SermonProvider>
-      <AppHeader />
-      <MobileNav />
-      <FormContent />
-    </SermonProvider>
+    <LibraryProvider>
+      <SermonProvider>
+        <AppHeader />
+        <MobileNav />
+        <FormContent />
+      </SermonProvider>
+    </LibraryProvider>
   )
 }

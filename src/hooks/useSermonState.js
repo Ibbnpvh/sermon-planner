@@ -1,6 +1,6 @@
 import { useReducer, useEffect, useRef } from 'react'
 import { createInitialState } from '../constants/initialState'
-import { saveState, loadState } from '../utils/localStorage'
+import { loadSermon, saveSermon } from '../utils/libraryStorage'
 
 // ─── Reducer ────────────────────────────────────────────────────────────────
 
@@ -171,6 +171,10 @@ function sermonReducer(state, action) {
     case 'SET_PERSONAL_NOTES':
       return { ...state, personalNotes: action.value }
 
+    // Load a different sermon (switch active)
+    case 'LOAD_SERMON':
+      return action.data
+
     // Reset
     case 'RESET_STATE':
       return createInitialState()
@@ -182,17 +186,28 @@ function sermonReducer(state, action) {
 
 // ─── Hook ───────────────────────────────────────────────────────────────────
 
-export function useSermonState() {
-  const saved = loadState()
-  const [state, dispatch] = useReducer(sermonReducer, saved ?? createInitialState())
+export function useSermonState(sermonId) {
+  const initial = (sermonId ? loadSermon(sermonId) : null) ?? createInitialState()
+  const [state, dispatch] = useReducer(sermonReducer, initial)
 
-  // Debounced localStorage persistence
+  // When sermonId changes externally, load the new sermon
+  const prevIdRef = useRef(sermonId)
+  useEffect(() => {
+    if (sermonId && sermonId !== prevIdRef.current) {
+      prevIdRef.current = sermonId
+      const data = loadSermon(sermonId) ?? createInitialState()
+      dispatch({ type: 'LOAD_SERMON', data })
+    }
+  }, [sermonId])
+
+  // Debounced save to per-sermon key
   const debounceRef = useRef(null)
   useEffect(() => {
+    if (!sermonId) return
     clearTimeout(debounceRef.current)
-    debounceRef.current = setTimeout(() => saveState(state), 300)
+    debounceRef.current = setTimeout(() => saveSermon(sermonId, state), 300)
     return () => clearTimeout(debounceRef.current)
-  }, [state])
+  }, [state, sermonId])
 
   return { state, dispatch }
 }

@@ -51,7 +51,9 @@
 
 .btnSecondary,
 .btnPrimary,
-.btnDanger {
+.btnDanger,
+.btnOutline,
+.btnIcon {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -88,6 +90,29 @@
   box-shadow: 0 4px 12px rgba(201, 168, 76, 0.4);
 }
 
+.btnOutline {
+  background: transparent;
+  color: var(--gold);
+  border: 1.5px solid rgba(201, 168, 76, 0.5);
+}
+
+.btnOutline:hover:not(:disabled) {
+  background: rgba(201, 168, 76, 0.12);
+  border-color: var(--gold);
+}
+
+.btnIcon {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--off-white);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  padding: 8px 12px;
+  font-size: 1rem;
+}
+
+.btnIcon:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.18);
+}
+
 .btnDanger {
   background: rgba(255, 255, 255, 0.08);
   color: #ffb3b3;
@@ -99,8 +124,29 @@
   background: rgba(255, 100, 100, 0.15);
 }
 
+.statsBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  background: rgba(201, 168, 76, 0.15);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 20px;
+  font-size: 0.78rem;
+  color: var(--light-gold);
+  font-family: var(--font-ui);
+  white-space: nowrap;
+}
+
+.statsWords {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.72rem;
+}
+
 .btnSecondary:disabled,
-.btnPrimary:disabled {
+.btnPrimary:disabled,
+.btnOutline:disabled,
+.btnIcon:disabled {
   opacity: 0.4;
   cursor: not-allowed;
   transform: none;

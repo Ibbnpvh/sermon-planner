@@ -1,3 +1,4 @@
+import { SermonLibraryPanel } from '../library/SermonLibraryPanel'
 import styles from './Sidebar.module.css'
 
 const SECTIONS = [
@@ -18,10 +19,7 @@ export function Sidebar() {
 
   return (
     <aside className={styles.sidebar}>
-      <div className={styles.logo}>
-        <span className={styles.logoIcon}>✝</span>
-        <span className={styles.logoText}>Planejador</span>
-      </div>
+      <SermonLibraryPanel />
       <nav className={styles.nav}>
         {SECTIONS.map(s => (
           <button

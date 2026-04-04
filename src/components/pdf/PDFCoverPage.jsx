@@ -143,8 +143,9 @@ function formatDate(d) {
   return `${day}/${m}/${y}`
 }
 
-export function PDFCoverPage({ state }) {
+export function PDFCoverPage({ state, stats }) {
   const { preacherInfo, titleTheme } = state
+  const duration = stats?.duration && stats.duration !== '—' ? stats.duration : null
 
   return (
     <Page size="A4" style={s.page}>
@@ -205,6 +206,12 @@ export function PDFCoverPage({ state }) {
               <View style={s.infoCell}>
                 <Text style={s.infoLabel}>Ocasião</Text>
                 <Text style={s.infoValue}>{preacherInfo.occasion}</Text>
+              </View>
+            ) : null}
+            {duration ? (
+              <View style={s.infoCell}>
+                <Text style={s.infoLabel}>Duração aprox.</Text>
+                <Text style={s.infoValue}>{duration}</Text>
               </View>
             ) : null}
           </View>
