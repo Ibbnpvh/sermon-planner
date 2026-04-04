@@ -162,7 +162,7 @@ export function PDFMainPoint({ point, index }) {
 
       {hasIlls && (
         <View style={s.illBox}>
-          <Text style={s.illLabel}>💡 Ilustrações</Text>
+          <Text style={s.illLabel}>Ilustrações</Text>
           {point.illustrations.filter(i => i.title?.trim() || i.body?.trim()).map(i => (
             <View key={i.id}>
               {i.title?.trim() ? <Text style={s.illTitle}>{i.title}</Text> : null}
