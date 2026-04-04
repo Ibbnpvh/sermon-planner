@@ -4,6 +4,33 @@
   overflow: hidden;
   background: var(--white);
   animation: fadeInUp 0.25s ease;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+.item.dragOver {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.25);
+}
+
+.dragHandle {
+  cursor: grab;
+  color: var(--gray);
+  font-size: 1.1rem;
+  line-height: 1;
+  flex-shrink: 0;
+  padding: 0 2px;
+  user-select: none;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+}
+
+.dragHandle:hover {
+  opacity: 1;
+  color: var(--gold);
+}
+
+.dragHandle:active {
+  cursor: grabbing;
 }
 
 .itemHeader {

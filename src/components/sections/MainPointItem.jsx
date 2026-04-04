@@ -7,7 +7,7 @@ import { BibleRefList } from './BibleRefList'
 import { IllustrationList } from './IllustrationList'
 import styles from './MainPointItem.module.css'
 
-export function MainPointItem({ point, index }) {
+export function MainPointItem({ point, index, isDragOver, onDragOver, onDrop, onDragLeave }) {
   const { dispatch } = useSermon()
   const [expanded, setExpanded] = useState(true)
 
@@ -17,9 +17,27 @@ export function MainPointItem({ point, index }) {
     dispatch({ type: 'REMOVE_MAIN_POINT', id: point.id })
   }
 
+  const handleDragStart = (e) => {
+    e.dataTransfer.setData('text/plain', String(index))
+    e.dataTransfer.effectAllowed = 'move'
+  }
+
   return (
-    <div className={styles.item}>
+    <div
+      className={`${styles.item} ${isDragOver ? styles.dragOver : ''}`}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
+      onDragLeave={onDragLeave}
+    >
       <div className={styles.itemHeader}>
+        <span
+          className={styles.dragHandle}
+          draggable
+          onDragStart={handleDragStart}
+          title="Arrastar para reordenar"
+        >
+          ⠿
+        </span>
         <span className={styles.number}>{index + 1}</span>
         <div className={styles.titleRow}>
           <TextInput

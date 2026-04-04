@@ -84,7 +84,187 @@ function hasText(str) {
   return Boolean(str?.trim())
 }
 
-export function SermonDocument({ state }) {
+const roteiroStyles = StyleSheet.create({
+  page: {
+    backgroundColor: '#fff',
+    paddingTop: 50,
+    paddingBottom: 70,
+    paddingHorizontal: 50,
+    fontFamily: theme.fonts.body,
+  },
+  heading: {
+    fontFamily: theme.fonts.heading,
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: theme.colors.navy,
+    marginBottom: 4,
+  },
+  subheading: {
+    fontFamily: theme.fonts.body,
+    fontSize: 10,
+    fontStyle: 'italic',
+    color: theme.colors.gray,
+    marginBottom: 20,
+  },
+  label: {
+    fontFamily: theme.fonts.heading,
+    fontSize: 7,
+    fontWeight: 'bold',
+    color: theme.colors.gray,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginBottom: 2,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#e8e0d0',
+  },
+  numBox: {
+    width: 20,
+    height: 20,
+    backgroundColor: theme.colors.navy,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 10,
+    flexShrink: 0,
+    marginTop: 1,
+  },
+  numText: {
+    fontFamily: theme.fonts.heading,
+    fontSize: 9,
+    fontWeight: 'bold',
+    color: theme.colors.gold,
+  },
+  rowContent: {
+    flex: 1,
+  },
+  pointTitle: {
+    fontFamily: theme.fonts.heading,
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: theme.colors.navy,
+    marginBottom: 2,
+  },
+  sub: {
+    fontFamily: theme.fonts.body,
+    fontSize: 9,
+    color: '#555',
+    marginLeft: 4,
+    lineHeight: 1.4,
+    marginBottom: 1,
+  },
+  verseBox: {
+    borderLeftWidth: 3,
+    borderLeftColor: theme.colors.gold,
+    backgroundColor: theme.colors.offWhite,
+    padding: 8,
+    marginBottom: 14,
+  },
+  verseText: {
+    fontFamily: theme.fonts.body,
+    fontSize: 10,
+    fontStyle: 'italic',
+    color: theme.colors.black,
+    lineHeight: 1.5,
+  },
+  introText: {
+    fontFamily: theme.fonts.body,
+    fontSize: 10,
+    color: '#333',
+    lineHeight: 1.5,
+    marginBottom: 14,
+  },
+  conclusionBox: {
+    backgroundColor: theme.colors.offWhite,
+    borderLeftWidth: 3,
+    borderLeftColor: theme.colors.navy,
+    padding: 10,
+    marginTop: 6,
+  },
+  conclusionText: {
+    fontFamily: theme.fonts.body,
+    fontSize: 10,
+    color: theme.colors.navy,
+    lineHeight: 1.5,
+  },
+  divider: {
+    borderTopWidth: 0.5,
+    borderTopColor: theme.colors.gold,
+    marginVertical: 12,
+  },
+})
+
+const rs = roteiroStyles
+
+function RoteiroRapido({ state, stats }) {
+  const { titleTheme, introduction, mainPoints, conclusion } = state
+  const duration = stats?.duration && stats.duration !== '—' ? stats.duration : null
+
+  return (
+    <Page size="A4" style={rs.page}>
+      <Text style={rs.heading}>{titleTheme?.sermonTitle || 'Sermão'}</Text>
+      <Text style={rs.subheading}>
+        Roteiro Rápido{duration ? ` · ${duration}` : ''}
+      </Text>
+
+      {titleTheme?.keyVerse ? (
+        <View style={rs.verseBox}>
+          <Text style={rs.verseText}>"{titleTheme.keyVerse}"</Text>
+        </View>
+      ) : null}
+
+      {introduction?.openingHook ? (
+        <>
+          <Text style={rs.label}>Introdução</Text>
+          <Text style={rs.introText}>{introduction.openingHook}</Text>
+        </>
+      ) : null}
+
+      {(mainPoints ?? []).length > 0 && (
+        <>
+          <Text style={rs.label}>Pontos</Text>
+          {mainPoints.map((pt, i) => (
+            <View key={pt.id} style={rs.row}>
+              <View style={rs.numBox}>
+                <Text style={rs.numText}>{i + 1}</Text>
+              </View>
+              <View style={rs.rowContent}>
+                <Text style={rs.pointTitle}>{pt.pointTitle || `Ponto ${i + 1}`}</Text>
+                {(pt.subTopics ?? []).filter(s => s.text?.trim()).map(s => (
+                  <Text key={s.id} style={rs.sub}>• {s.text}</Text>
+                ))}
+              </View>
+            </View>
+          ))}
+        </>
+      )}
+
+      {(conclusion?.closingText || conclusion?.callToAction) && (
+        <>
+          <View style={rs.divider} />
+          <Text style={rs.label}>Conclusão</Text>
+          <View style={rs.conclusionBox}>
+            {conclusion.closingText ? (
+              <Text style={rs.conclusionText}>{conclusion.closingText}</Text>
+            ) : null}
+            {conclusion.callToAction ? (
+              <Text style={[rs.conclusionText, { fontWeight: 'bold', marginTop: 6 }]}>
+                {conclusion.callToAction}
+              </Text>
+            ) : null}
+          </View>
+        </>
+      )}
+    </Page>
+  )
+}
+
+export function SermonDocument({ state, stats }) {
   const { preacherInfo, titleTheme, introduction, mainPoints, illustrations, conclusion, references } = state
 
   const standaloneIllustrations = illustrations.filter(i => !i.linkedPointId)
@@ -97,7 +277,10 @@ export function SermonDocument({ state }) {
       language="pt-BR"
     >
       {/* Capa */}
-      <PDFCoverPage state={state} />
+      <PDFCoverPage state={state} stats={stats} />
+
+      {/* Roteiro Rápido */}
+      <RoteiroRapido state={state} stats={stats} />
 
       {/* Introdução */}
       {(hasText(introduction.openingHook) || hasText(introduction.context) || hasText(introduction.transition)) && (
