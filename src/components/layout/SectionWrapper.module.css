@@ -1,37 +1,82 @@
 .wrapper {
-  background: var(--white);
-  border-radius: 12px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
-  border: 1px solid rgba(201, 168, 76, 0.2);
+  border: 1px solid var(--border-light);
   overflow: hidden;
-  scroll-margin-top: 80px;
+  scroll-margin-top: 82px;
+  transition: box-shadow var(--transition);
+}
+
+.wrapper:hover {
+  box-shadow: var(--shadow-md);
 }
 
 .header {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 18px 24px 16px;
-  background: linear-gradient(135deg, var(--navy) 0%, #253460 100%);
-  border-bottom: 3px solid var(--gold);
+  padding: 15px 20px 13px;
+  background: linear-gradient(135deg, var(--navy) 0%, #1e2f58 55%, #253460 100%);
+  border-bottom: 2px solid rgba(201, 168, 76, 0.45);
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
 }
 
-.icon {
-  font-size: 1.3rem;
-  line-height: 1;
+.header:hover {
+  background: linear-gradient(135deg, #1e2f54 0%, #243570 55%, #2a3d70 100%);
+}
+
+.iconWrap {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(201, 168, 76, 0.2);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 8px;
+  color: var(--gold);
+  flex-shrink: 0;
 }
 
 .title {
   font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--off-white);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
+  flex: 1;
+}
+
+.chevron {
+  color: rgba(201, 168, 76, 0.6);
+  display: flex;
+  align-items: center;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.chevronCollapsed {
+  transform: rotate(-90deg);
 }
 
 .body {
-  padding: 24px;
+  padding: 22px 22px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
+  overflow: hidden;
+  max-height: 9999px;
+  transition: max-height 0.35s ease, padding 0.3s ease, opacity 0.22s ease;
+  opacity: 1;
+}
+
+.bodyCollapsed {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  opacity: 0;
+  pointer-events: none;
 }

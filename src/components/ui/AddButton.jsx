@@ -1,3 +1,4 @@
+import { Plus } from 'lucide-react'
 import styles from './Buttons.module.css'
 
 export function AddButton({ label, onClick, small = false }) {
@@ -7,7 +8,7 @@ export function AddButton({ label, onClick, small = false }) {
       className={`${styles.addBtn} ${small ? styles.small : ''}`}
       onClick={onClick}
     >
-      <span className={styles.plus}>+</span>
+      <Plus size={small ? 13 : 15} strokeWidth={2.5} />
       {label}
     </button>
   )

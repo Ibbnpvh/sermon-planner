@@ -1,46 +1,57 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }
 
 .label {
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--navy);
+  font-family: var(--font-ui);
+  opacity: 0.75;
 }
 
 .input,
 .textarea {
   width: 100%;
-  padding: 10px 14px;
+  padding: 10px 13px;
   border: 1.5px solid var(--border);
   border-radius: var(--radius);
   background: var(--white);
-  color: var(--black);
-  font-size: 0.95rem;
-  transition: border-color var(--transition), box-shadow var(--transition);
+  color: var(--text-dark);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
   outline: none;
+  font-family: var(--font-ui);
+}
+
+.input:hover:not(:disabled),
+.textarea:hover:not(:disabled) {
+  border-color: rgba(201, 168, 76, 0.5);
 }
 
 .input:focus,
 .textarea:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.18);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+  background: #fffef8;
 }
 
 .input:disabled,
 .textarea:disabled {
   background: var(--bg-light);
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.55;
 }
 
 .textarea {
   resize: vertical;
-  line-height: 1.6;
+  line-height: 1.65;
+  min-height: 72px;
 }
 
 input[type='date'].input {

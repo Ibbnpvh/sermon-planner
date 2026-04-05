@@ -4,31 +4,31 @@
   gap: 6px;
   padding: 8px 16px;
   background: transparent;
-  border: 1.5px dashed var(--gold);
+  border: 1.5px dashed rgba(201, 168, 76, 0.55);
   border-radius: var(--radius);
   color: var(--navy);
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   transition: all var(--transition);
+  font-family: var(--font-ui);
 }
 
 .addBtn:hover {
-  background: rgba(201, 168, 76, 0.12);
+  background: rgba(201, 168, 76, 0.1);
   border-style: solid;
   border-color: var(--gold);
+  color: #6b4f00;
+}
+
+.addBtn svg {
+  color: var(--gold);
+  flex-shrink: 0;
 }
 
 .addBtn.small {
   padding: 5px 10px;
-  font-size: 0.8rem;
-}
-
-.plus {
-  font-size: 1.1em;
-  line-height: 1;
-  color: var(--gold);
-  font-weight: 700;
+  font-size: 0.78rem;
 }
 
 .removeBtn {
@@ -39,11 +39,9 @@
   height: 28px;
   padding: 0;
   background: transparent;
-  border: 1.5px solid #e0d0d0;
+  border: 1.5px solid rgba(176, 64, 64, 0.25);
   border-radius: 50%;
   color: #b04040;
-  font-size: 1.2rem;
-  line-height: 1;
   transition: all var(--transition);
   flex-shrink: 0;
 }
@@ -51,10 +49,10 @@
 .removeBtn:hover {
   background: #fef2f2;
   border-color: #b04040;
+  color: #8b0000;
 }
 
 .removeBtn.small {
   width: 22px;
   height: 22px;
-  font-size: 1rem;
 }

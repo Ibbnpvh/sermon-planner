@@ -1,3 +1,4 @@
+import { X } from 'lucide-react'
 import styles from './Buttons.module.css'
 
 export function RemoveButton({ onClick, title = 'Remover', small = false }) {
@@ -9,7 +10,7 @@ export function RemoveButton({ onClick, title = 'Remover', small = false }) {
       title={title}
       aria-label={title}
     >
-      ×
+      <X size={small ? 12 : 14} strokeWidth={2.5} />
     </button>
   )
 }

@@ -19,6 +19,15 @@
   gap: 20px;
 }
 
+.seriesLabel {
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 0;
+  font-family: var(--font-ui, system-ui, sans-serif);
+  font-weight: 600;
+}
+
 .centralTheme {
   color: rgba(201, 168, 76, 0.75);
   font-family: var(--font-body, Georgia, serif);

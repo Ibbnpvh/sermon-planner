@@ -1,3 +1,4 @@
+import { NotebookPen, Lock } from 'lucide-react'
 import { useSermon } from '../../context/SermonContext'
 import { SectionWrapper } from '../layout/SectionWrapper'
 import { TextArea } from '../ui/TextArea'
@@ -7,9 +8,12 @@ export function PersonalNotes() {
   const { state, dispatch } = useSermon()
 
   return (
-    <SectionWrapper id="personal-notes" title="Anotações Pessoais" icon="📝">
+    <SectionWrapper id="personal-notes" title="Anotações Pessoais" icon={NotebookPen}>
       <div>
-        <span className={styles.personalBadge}>🔒 Não exportado para o PDF</span>
+        <span className={styles.personalBadge}>
+          <Lock size={11} />
+          Não exportado para o PDF
+        </span>
       </div>
       <TextArea
         value={state.personalNotes}

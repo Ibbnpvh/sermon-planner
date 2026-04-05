@@ -1,3 +1,4 @@
+import { BookOpen } from 'lucide-react'
 import { useSermon } from '../../context/SermonContext'
 import { SectionWrapper } from '../layout/SectionWrapper'
 import { TextInput } from '../ui/TextInput'
@@ -11,7 +12,7 @@ export function TitleTheme() {
   const set = (field, value) => dispatch({ type: 'SET_TITLE_THEME_FIELD', field, value })
 
   return (
-    <SectionWrapper id="title-theme" title="Título e Tema" icon="✝️">
+    <SectionWrapper id="title-theme" title="Título e Tema" icon={BookOpen}>
       <TextInput label="Título do Sermão" value={titleTheme.sermonTitle} onChange={v => set('sermonTitle', v)} placeholder="Ex: A Graça que Transforma" />
       <TextInput label="Tema Central" value={titleTheme.centralTheme} onChange={v => set('centralTheme', v)} placeholder="Ex: A graça de Deus como agente de transformação pessoal" />
       <div className={styles.grid2}>

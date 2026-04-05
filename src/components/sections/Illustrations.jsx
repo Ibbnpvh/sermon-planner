@@ -1,3 +1,4 @@
+import { Lightbulb } from 'lucide-react'
 import { useSermon } from '../../context/SermonContext'
 import { SectionWrapper } from '../layout/SectionWrapper'
 import { AddButton } from '../ui/AddButton'
@@ -12,7 +13,7 @@ export function Illustrations() {
   const add = () => dispatch({ type: 'ADD_STANDALONE_ILLUSTRATION', illustration: createStandaloneIllustration() })
 
   return (
-    <SectionWrapper id="illustrations" title="Ilustrações e Histórias" icon="💡">
+    <SectionWrapper id="illustrations" title="Ilustrações e Histórias" icon={Lightbulb}>
       {illustrations.length === 0 && (
         <p className={styles.empty}>Nenhuma ilustração ainda. Adicione histórias, analogias ou exemplos que enriquecem o sermão.</p>
       )}

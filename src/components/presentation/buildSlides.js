@@ -11,10 +11,12 @@ export function buildSlides(state) {
   const slides = []
 
   // 1. Title slide — always present
+  const pi = state.preacherInfo ?? {}
   slides.push({
     type: 'title',
     data: state.titleTheme ?? {},
-    preacherInfo: state.preacherInfo ?? {},
+    preacherInfo: pi,
+    personalNotes: state.personalNotes ?? '',
   })
 
   // 2. Introduction — if any content

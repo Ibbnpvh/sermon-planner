@@ -1,3 +1,4 @@
+import { BookMarked } from 'lucide-react'
 import { useSermon } from '../../context/SermonContext'
 import { SectionWrapper } from '../layout/SectionWrapper'
 import { TextInput } from '../ui/TextInput'
@@ -16,17 +17,17 @@ export function References() {
   const update = (id, value) => dispatch({ type: 'UPDATE_REFERENCE', id, value })
 
   return (
-    <SectionWrapper id="references" title="Referências Bibliográficas" icon="📚">
+    <SectionWrapper id="references" title="Referências Bibliográficas" icon={BookMarked}>
       {references.length === 0 && (
         <p className={styles.empty}>Nenhuma referência adicionada. Liste os livros, artigos e fontes que embasam este sermão.</p>
       )}
       <div className={styles.pointList}>
-        {references.map((ref, i) => (
+        {references.map((ref) => (
           <div key={ref.id} className={listStyles.row}>
             <TextInput
               value={ref.citation}
               onChange={v => update(ref.id, v)}
-              placeholder={`Ex: STOTT, John R.W. A Pregação entre dois mundos. ABU, 2014.`}
+              placeholder="Ex: STOTT, John R.W. A Pregação entre dois mundos. ABU, 2014."
             />
             <RemoveButton onClick={() => remove(ref.id)} small />
           </div>
