@@ -10,7 +10,7 @@ import { exportSermonJSON } from '../../utils/exportImport'
 import styles from './AppHeader.module.css'
 
 export function AppHeader() {
-  const { state, dispatch } = useSermon()
+  const { state, dispatch, saveStatus } = useSermon()
   const [previewOpen, setPreviewOpen] = useState(false)
   const [outlineOpen, setOutlineOpen] = useState(false)
   const [presentMode, setPresentMode] = useState(false)
@@ -41,6 +41,13 @@ export function AppHeader() {
         </div>
 
         <div className={styles.actions}>
+          {saveStatus === 'saving' && (
+            <span className={styles.saveStatus} data-status="saving">Salvando…</span>
+          )}
+          {saveStatus === 'saved' && (
+            <span className={styles.saveStatus} data-status="saved">✓ Salvo</span>
+          )}
+
           {stats.words > 0 && (
             <span className={styles.statsBadge} title={`${stats.words.toLocaleString('pt-BR')} palavras`}>
               ⏱ {stats.duration}

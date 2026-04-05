@@ -163,6 +163,11 @@ export function PDFCoverPage({ state, stats }) {
           <View style={s.ornamentLine} />
         </View>
 
+        {/* Series */}
+        {preacherInfo.series ? (
+          <Text style={s.centralTheme}>{preacherInfo.series}</Text>
+        ) : null}
+
         {/* Sermon Title */}
         <Text style={s.sermonTitle}>
           {titleTheme.sermonTitle || 'Título do Sermão'}
@@ -194,6 +199,12 @@ export function PDFCoverPage({ state, stats }) {
               <View style={s.infoCell}>
                 <Text style={s.infoLabel}>Data</Text>
                 <Text style={s.infoValue}>{formatDate(preacherInfo.date)}</Text>
+              </View>
+            ) : null}
+            {preacherInfo.church ? (
+              <View style={s.infoCell}>
+                <Text style={s.infoLabel}>Igreja</Text>
+                <Text style={s.infoValue}>{preacherInfo.church}</Text>
               </View>
             ) : null}
             {preacherInfo.location ? (

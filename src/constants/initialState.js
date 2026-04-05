@@ -3,9 +3,11 @@ import { generateId } from '../utils/generateId'
 export const createInitialState = () => ({
   preacherInfo: {
     preacherName: '',
+    church: '',
     date: '',
     location: '',
     occasion: '',
+    series: '',
   },
   titleTheme: {
     sermonTitle: '',

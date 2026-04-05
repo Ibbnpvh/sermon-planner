@@ -11,6 +11,14 @@ function formatTime(seconds) {
   return `${m}:${s}`
 }
 
+const SLIDE_TYPE_LABELS = {
+  title: (s) => s.data?.sermonTitle || 'Sermão',
+  point: (s) => `Ponto ${s.index + 1} de ${s.total}`,
+  intro: () => 'Introdução',
+  conclusion: () => 'Conclusão',
+  prayer: () => 'Oração Final',
+}
+
 function SlideRenderer({ slide, fontSize }) {
   if (slide.type === 'title') {
     return <TitleSlide data={slide.data} preacherInfo={slide.preacherInfo} fontSize={fontSize} />
@@ -26,11 +34,14 @@ export function PresentationMode({ isOpen, onClose, state, stats }) {
   const [elapsed, setElapsed] = useState(0)
   const [fontSize, setFontSize] = useState(1)
   const [transitioning, setTransitioning] = useState(false)
+  const [blackScreen, setBlackScreen] = useState(false)
+  const [showNotes, setShowNotes] = useState(false)
   const containerRef = useRef(null)
   const startTime = useRef(null)
   const touchStart = useRef(null)
 
   const slides = useMemo(() => buildSlides(state), [state])
+  const personalNotes = state?.personalNotes?.trim() || ''
 
   const goTo = useCallback((index) => {
     if (index < 0 || index >= slides.length || transitioning) return
@@ -49,6 +60,8 @@ export function PresentationMode({ isOpen, onClose, state, stats }) {
     if (!isOpen) return
     setCurrent(0)
     setElapsed(0)
+    setBlackScreen(false)
+    setShowNotes(false)
     startTime.current = Date.now()
     containerRef.current?.requestFullscreen?.().catch(() => {})
     return () => {
@@ -56,7 +69,7 @@ export function PresentationMode({ isOpen, onClose, state, stats }) {
     }
   }, [isOpen])
 
-  // Sync close when user presses browser's native Esc to exit fullscreen
+  // Sync close when user exits fullscreen via browser
   useEffect(() => {
     const onFsChange = () => {
       if (!document.fullscreenElement && isOpen) onClose()
@@ -78,15 +91,19 @@ export function PresentationMode({ isOpen, onClose, state, stats }) {
   useEffect(() => {
     if (!isOpen) return
     const onKey = (e) => {
+      // Black screen toggle (B key) — blocks all other actions while active
+      if (e.key === 'b' || e.key === 'B') { setBlackScreen(s => !s); return }
+      if (blackScreen) return
       if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next() }
       else if (e.key === 'ArrowLeft') { e.preventDefault(); prev() }
       else if (e.key === 'Escape') onClose()
       else if (e.key === '+' || e.key === '=') setFontSize(s => Math.min(+(s + 0.1).toFixed(1), 1.8))
       else if (e.key === '-') setFontSize(s => Math.max(+(s - 0.1).toFixed(1), 0.6))
+      else if ((e.key === 'n' || e.key === 'N') && personalNotes) setShowNotes(s => !s)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [isOpen, next, prev, onClose])
+  }, [isOpen, next, prev, onClose, blackScreen, personalNotes])
 
   // Touch swipe
   const onTouchStart = (e) => { touchStart.current = e.touches[0].clientX }
@@ -100,6 +117,7 @@ export function PresentationMode({ isOpen, onClose, state, stats }) {
   if (!isOpen || slides.length === 0) return null
 
   const slide = slides[current]
+  const slideLabel = SLIDE_TYPE_LABELS[slide.type]?.(slide) ?? ''
 
   return (
     <div
@@ -108,6 +126,13 @@ export function PresentationMode({ isOpen, onClose, state, stats }) {
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
+      {/* Black screen overlay */}
+      {blackScreen && (
+        <div className={styles.blackScreen} onClick={() => setBlackScreen(false)}>
+          <p className={styles.blackHint}>Pressione B ou clique para retomar</p>
+        </div>
+      )}
+
       {/* Top bar */}
       <div className={styles.topBar}>
         <div className={styles.fontControls}>
@@ -115,29 +140,27 @@ export function PresentationMode({ isOpen, onClose, state, stats }) {
             className={styles.iconBtn}
             onClick={() => setFontSize(s => Math.max(+(s - 0.1).toFixed(1), 0.6))}
             title="Reduzir fonte (−)"
-            aria-label="Reduzir fonte"
-          >
-            A−
-          </button>
+          >A−</button>
           <button
             className={styles.iconBtn}
             onClick={() => setFontSize(s => Math.min(+(s + 0.1).toFixed(1), 1.8))}
             title="Aumentar fonte (+)"
-            aria-label="Aumentar fonte"
-          >
-            A+
-          </button>
+          >A+</button>
+          <button
+            className={`${styles.iconBtn} ${blackScreen ? styles.iconBtnActive : ''}`}
+            onClick={() => setBlackScreen(s => !s)}
+            title="Tela preta (B)"
+          >■</button>
+          {personalNotes && (
+            <button
+              className={`${styles.iconBtn} ${showNotes ? styles.iconBtnActive : ''}`}
+              onClick={() => setShowNotes(s => !s)}
+              title="Notas do Pregador (N)"
+            >📝</button>
+          )}
         </div>
-        <div className={styles.slideTitle}>
-          {slide.type === 'title' && (state?.titleTheme?.sermonTitle || 'Sermão')}
-          {slide.type === 'point' && `Ponto ${slide.index + 1} de ${slide.total}`}
-          {slide.type === 'intro' && 'Introdução'}
-          {slide.type === 'conclusion' && 'Conclusão'}
-          {slide.type === 'prayer' && 'Oração Final'}
-        </div>
-        <button className={styles.closeBtn} onClick={onClose} title="Sair (Esc)" aria-label="Sair da apresentação">
-          ✕
-        </button>
+        <div className={styles.slideTitle}>{slideLabel}</div>
+        <button className={styles.closeBtn} onClick={onClose} title="Sair (Esc)">✕</button>
       </div>
 
       {/* Slide content */}
@@ -145,16 +168,23 @@ export function PresentationMode({ isOpen, onClose, state, stats }) {
         <SlideRenderer slide={slide} fontSize={fontSize} />
       </div>
 
+      {/* Speaker notes panel */}
+      {showNotes && personalNotes && (
+        <div className={styles.notesPanel}>
+          <div className={styles.notesHeader}>
+            <span>Notas do Pregador</span>
+            <button className={styles.notesClose} onClick={() => setShowNotes(false)}>✕</button>
+          </div>
+          <p className={styles.notesText}>{personalNotes}</p>
+        </div>
+      )}
+
       {/* Nav arrows */}
       {current > 0 && (
-        <button className={`${styles.navBtn} ${styles.navLeft}`} onClick={prev} aria-label="Slide anterior">
-          ‹
-        </button>
+        <button className={`${styles.navBtn} ${styles.navLeft}`} onClick={prev} aria-label="Slide anterior">‹</button>
       )}
       {current < slides.length - 1 && (
-        <button className={`${styles.navBtn} ${styles.navRight}`} onClick={next} aria-label="Próximo slide">
-          ›
-        </button>
+        <button className={`${styles.navBtn} ${styles.navRight}`} onClick={next} aria-label="Próximo slide">›</button>
       )}
 
       {/* Bottom bar */}

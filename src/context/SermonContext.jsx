@@ -7,7 +7,7 @@ const SermonContext = createContext(null)
 export function SermonProvider({ children }) {
   const { library, updateMeta } = useLibrary()
   const activeId = library.activeId
-  const { state, dispatch } = useSermonState(activeId)
+  const { state, dispatch, saveStatus } = useSermonState(activeId)
 
   // Keep library index in sync with title/date changes
   const syncRef = useRef(null)
@@ -25,7 +25,7 @@ export function SermonProvider({ children }) {
   }, [state.titleTheme?.sermonTitle, state.preacherInfo?.date, activeId])
 
   return (
-    <SermonContext.Provider value={{ state, dispatch, activeId }}>
+    <SermonContext.Provider value={{ state, dispatch, activeId, saveStatus }}>
       {children}
     </SermonContext.Provider>
   )

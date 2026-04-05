@@ -1,4 +1,4 @@
-import { useReducer, useEffect, useRef } from 'react'
+import { useReducer, useEffect, useRef, useState } from 'react'
 import { createInitialState } from '../constants/initialState'
 import { loadSermon, saveSermon } from '../utils/libraryStorage'
 
@@ -200,14 +200,25 @@ export function useSermonState(sermonId) {
     }
   }, [sermonId])
 
-  // Debounced save to per-sermon key
+  // Debounced save to per-sermon key with save status
+  const [saveStatus, setSaveStatus] = useState('idle') // 'idle' | 'saving' | 'saved'
   const debounceRef = useRef(null)
+  const savedTimerRef = useRef(null)
   useEffect(() => {
     if (!sermonId) return
+    setSaveStatus('saving')
     clearTimeout(debounceRef.current)
-    debounceRef.current = setTimeout(() => saveSermon(sermonId, state), 300)
-    return () => clearTimeout(debounceRef.current)
+    clearTimeout(savedTimerRef.current)
+    debounceRef.current = setTimeout(() => {
+      saveSermon(sermonId, state)
+      setSaveStatus('saved')
+      savedTimerRef.current = setTimeout(() => setSaveStatus('idle'), 3000)
+    }, 300)
+    return () => {
+      clearTimeout(debounceRef.current)
+      clearTimeout(savedTimerRef.current)
+    }
   }, [state, sermonId])
 
-  return { state, dispatch }
+  return { state, dispatch, saveStatus }
 }

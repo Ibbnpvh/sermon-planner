@@ -5,6 +5,11 @@ export function TitleSlide({ data, preacherInfo, fontSize }) {
   return (
     <div className={styles.slide}>
       <div className={styles.titleSlideContent}>
+        {preacherInfo.series && (
+          <p className={styles.seriesLabel} style={{ fontSize: `${0.85 * scale}rem` }}>
+            {preacherInfo.series}
+          </p>
+        )}
         {data.centralTheme && (
           <p className={styles.centralTheme} style={{ fontSize: `${1.1 * scale}rem` }}>
             {data.centralTheme}

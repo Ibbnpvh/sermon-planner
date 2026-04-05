@@ -11,22 +11,59 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 18px 24px 16px;
+  padding: 16px 20px 14px;
   background: linear-gradient(135deg, var(--navy) 0%, #253460 100%);
   border-bottom: 3px solid var(--gold);
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.header:hover {
+  background: linear-gradient(135deg, #1e2f54 0%, #2a3d70 100%);
 }
 
 .icon {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   line-height: 1;
+  flex-shrink: 0;
 }
 
 .title {
   font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--off-white);
   letter-spacing: 0.02em;
+  flex: 1;
+}
+
+.collapseBtn {
+  background: none;
+  border: none;
+  padding: 4px 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+
+.collapseBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.collapseIcon {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.6);
+  transition: transform 0.22s ease;
+  display: block;
+}
+
+.collapsedIcon {
+  transform: rotate(-90deg);
 }
 
 .body {
@@ -34,4 +71,16 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  overflow: hidden;
+  max-height: 9999px;
+  transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.2s ease;
+  opacity: 1;
+}
+
+.bodyCollapsed {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  opacity: 0;
+  pointer-events: none;
 }

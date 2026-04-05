@@ -14,11 +14,15 @@ export function PreacherInfo() {
     <SectionWrapper id="preacher-info" title="Informações do Pregador" icon="👤">
       <div className={styles.grid2}>
         <TextInput label="Nome do Pregador" value={preacherInfo.preacherName} onChange={v => set('preacherName', v)} placeholder="Ex: Rev. João da Silva" />
-        <DateInput label="Data do Culto" value={preacherInfo.date} onChange={v => set('date', v)} />
+        <TextInput label="Igreja / Congregação" value={preacherInfo.church ?? ''} onChange={v => set('church', v)} placeholder="Ex: Igreja Batista Central" />
       </div>
       <div className={styles.grid2}>
-        <TextInput label="Local / Igreja" value={preacherInfo.location} onChange={v => set('location', v)} placeholder="Ex: Igreja Batista Central" />
+        <DateInput label="Data do Culto" value={preacherInfo.date} onChange={v => set('date', v)} />
         <TextInput label="Ocasião / Evento" value={preacherInfo.occasion} onChange={v => set('occasion', v)} placeholder="Ex: Culto de Domingo, Conferência..." />
+      </div>
+      <div className={styles.grid2}>
+        <TextInput label="Local / Endereço" value={preacherInfo.location} onChange={v => set('location', v)} placeholder="Ex: Rua das Palmeiras, 200" />
+        <TextInput label="Série de Sermões" value={preacherInfo.series ?? ''} onChange={v => set('series', v)} placeholder="Ex: Série Fé e Obras — Parte 3" />
       </div>
     </SectionWrapper>
   )

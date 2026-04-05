@@ -13,12 +13,13 @@ export function SermonLibraryPanel() {
   const { library, selectSermon, removeSermon, duplicateSermon, createSermon } = useLibrary()
   const [showTemplates, setShowTemplates] = useState(false)
   const [collapsed, setCollapsed] = useState(false)
+  const [search, setSearch] = useState('')
 
   const { sermons, activeId } = library
 
-  function handleNew() {
-    setShowTemplates(true)
-  }
+  const filtered = search.trim()
+    ? sermons.filter(s => s.title?.toLowerCase().includes(search.toLowerCase()))
+    : sermons
 
   return (
     <div className={styles.panel}>
@@ -28,18 +29,37 @@ export function SermonLibraryPanel() {
           <span className={styles.count}>{sermons.length}</span>
         </span>
         <button className={styles.toggleBtn} title={collapsed ? 'Expandir' : 'Recolher'}>
-          {collapsed ? '▶' : '▼'}
+          <span style={{ display: 'inline-block', transition: 'transform 0.2s', transform: collapsed ? 'rotate(-90deg)' : 'none', fontSize: '0.6rem' }}>▼</span>
         </button>
       </div>
 
       {!collapsed && (
         <>
-          <button className={styles.newBtn} onClick={handleNew}>
+          <div className={styles.searchRow}>
+            <input
+              className={styles.searchInput}
+              type="text"
+              placeholder="Buscar sermão..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              onClick={e => e.stopPropagation()}
+            />
+            {search && (
+              <button className={styles.clearSearch} onClick={() => setSearch('')} title="Limpar busca">×</button>
+            )}
+          </div>
+
+          <button className={styles.newBtn} onClick={() => setShowTemplates(true)}>
             + Novo Sermão
           </button>
 
           <ul className={styles.list}>
-            {sermons.map(s => (
+            {filtered.length === 0 && (
+              <li className={styles.empty}>
+                {search ? 'Nenhum resultado.' : 'Nenhum sermão ainda.'}
+              </li>
+            )}
+            {filtered.map(s => (
               <li
                 key={s.id}
                 className={`${styles.item} ${s.id === activeId ? styles.active : ''}`}
@@ -59,7 +79,7 @@ export function SermonLibraryPanel() {
                     title="Duplicar"
                   >⧉</button>
                   <button
-                    className={styles.actionBtn + ' ' + styles.danger}
+                    className={`${styles.actionBtn} ${styles.danger}`}
                     onClick={() => removeSermon(s.id)}
                     title="Excluir"
                   >✕</button>
