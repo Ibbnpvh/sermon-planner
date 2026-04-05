@@ -1,48 +1,48 @@
 .grid2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 14px;
 }
 
 .grid3 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
+  gap: 14px;
 }
 
 .pointList {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .empty {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: var(--gray);
   font-style: italic;
   text-align: center;
-  padding: 12px;
-  background: var(--off-white);
-  border-radius: 8px;
+  padding: 20px 16px;
+  background: var(--bg-light);
+  border-radius: var(--radius);
   border: 1px dashed var(--border);
+  line-height: 1.5;
 }
 
 .personalBadge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.75rem;
+  gap: 5px;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   color: #7c5c00;
-  background: rgba(201, 168, 76, 0.15);
-  border: 1px solid var(--light-gold);
+  background: rgba(201, 168, 76, 0.12);
+  border: 1px solid rgba(201, 168, 76, 0.3);
   border-radius: 20px;
-  padding: 4px 12px;
+  padding: 4px 10px;
+  font-family: var(--font-ui);
 }
 
 @media (max-width: 600px) {
-  .grid2, .grid3 {
-    grid-template-columns: 1fr;
-  }
+  .grid2, .grid3 { grid-template-columns: 1fr; }
 }

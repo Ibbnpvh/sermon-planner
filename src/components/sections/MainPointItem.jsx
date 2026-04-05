@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { GripVertical } from 'lucide-react'
 import { useSermon } from '../../context/SermonContext'
 import { TextInput } from '../ui/TextInput'
 import { RemoveButton } from '../ui/RemoveButton'
@@ -36,7 +37,7 @@ export function MainPointItem({ point, index, isDragOver, onDragOver, onDrop, on
           onDragStart={handleDragStart}
           title="Arrastar para reordenar"
         >
-          ⠿
+          <GripVertical size={15} strokeWidth={1.8} />
         </span>
         <span className={styles.number}>{index + 1}</span>
         <div className={styles.titleRow}>

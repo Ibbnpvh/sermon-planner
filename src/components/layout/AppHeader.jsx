@@ -1,5 +1,9 @@
 import { useState } from 'react'
 import { PDFDownloadLink } from '@react-pdf/renderer'
+import {
+  Eye, FileDown, Presentation, FileText,
+  Save, Trash2, Timer, Cross,
+} from 'lucide-react'
 import { useSermon } from '../../context/SermonContext'
 import { SermonDocument } from '../pdf/SermonDocument'
 import { PDFPreviewModal } from '../pdf/PDFPreviewModal'
@@ -32,39 +36,56 @@ export function AppHeader() {
   return (
     <>
       <header className={styles.header}>
+        {/* Brand */}
         <div className={styles.brand}>
-          <span className={styles.cross}>✝</span>
-          <div>
+          <div className={styles.brandIcon}>
+            <Cross size={20} strokeWidth={2.5} />
+          </div>
+          <div className={styles.brandText}>
             <span className={styles.title}>Planejador de Sermão</span>
             <span className={styles.subtitle}>Organize · Pregue · Inspire</span>
           </div>
         </div>
 
+        {/* Actions */}
         <div className={styles.actions}>
+          {/* Save status */}
           {saveStatus === 'saving' && (
-            <span className={styles.saveStatus} data-status="saving">Salvando…</span>
+            <span className={styles.saveStatus} data-status="saving">
+              <span className={styles.saveDot} />
+              Salvando…
+            </span>
           )}
           {saveStatus === 'saved' && (
-            <span className={styles.saveStatus} data-status="saved">✓ Salvo</span>
+            <span className={styles.saveStatus} data-status="saved">
+              <Save size={11} />
+              Salvo
+            </span>
           )}
 
+          {/* Stats badge */}
           {stats.words > 0 && (
             <span className={styles.statsBadge} title={`${stats.words.toLocaleString('pt-BR')} palavras`}>
-              ⏱ {stats.duration}
+              <Timer size={13} />
+              {stats.duration}
+              <span className={styles.statsDiv}>·</span>
               <span className={styles.statsWords}>{stats.words.toLocaleString('pt-BR')} palavras</span>
             </span>
           )}
 
+          {/* Apresentar */}
           <button
             type="button"
             className={styles.btnPresent}
             onClick={() => setPresentMode(true)}
             disabled={!hasTitle}
-            title={!hasTitle ? 'Preencha o título do sermão para apresentar' : 'Modo Apresentação — tela cheia'}
+            title={!hasTitle ? 'Preencha o título do sermão para apresentar' : 'Modo Apresentação — tela cheia (Ctrl+P)'}
           >
-            <span>▶</span> Apresentar
+            <Presentation size={15} />
+            <span>Apresentar</span>
           </button>
 
+          {/* Esboço */}
           <button
             type="button"
             className={styles.btnOutline}
@@ -72,19 +93,23 @@ export function AppHeader() {
             disabled={!hasTitle}
             title={!hasTitle ? 'Preencha o título do sermão' : 'Ver esboço do sermão'}
           >
-            <span>📋</span> Esboço
+            <FileText size={15} />
+            <span>Esboço</span>
           </button>
 
+          {/* Pré-visualizar PDF */}
           <button
             type="button"
             className={styles.btnSecondary}
             onClick={() => setPreviewOpen(true)}
             disabled={!hasTitle}
-            title={!hasTitle ? 'Preencha o título do sermão para pré-visualizar' : ''}
+            title={!hasTitle ? 'Preencha o título do sermão para pré-visualizar' : 'Pré-visualizar PDF'}
           >
-            <span>👁</span> Pré-visualizar PDF
+            <Eye size={15} />
+            <span>Visualizar PDF</span>
           </button>
 
+          {/* Exportar PDF */}
           {hasTitle ? (
             <PDFDownloadLink
               document={<SermonDocument state={state} stats={stats} />}
@@ -93,17 +118,19 @@ export function AppHeader() {
             >
               {({ loading }) => (
                 <>
-                  <span>📄</span>
-                  {loading ? 'Gerando...' : 'Exportar PDF'}
+                  <FileDown size={15} />
+                  <span>{loading ? 'Gerando…' : 'Exportar PDF'}</span>
                 </>
               )}
             </PDFDownloadLink>
           ) : (
             <button type="button" className={styles.btnPrimary} disabled>
-              <span>📄</span> Exportar PDF
+              <FileDown size={15} />
+              <span>Exportar PDF</span>
             </button>
           )}
 
+          {/* Backup JSON */}
           <button
             type="button"
             className={styles.btnIcon}
@@ -111,16 +138,17 @@ export function AppHeader() {
             disabled={!hasTitle}
             title="Baixar cópia de segurança (.json)"
           >
-            💾
+            <Save size={16} />
           </button>
 
+          {/* Reset */}
           <button
             type="button"
             className={styles.btnDanger}
             onClick={handleReset}
             title="Limpar formulário"
           >
-            🗑
+            <Trash2 size={16} />
           </button>
         </div>
       </header>

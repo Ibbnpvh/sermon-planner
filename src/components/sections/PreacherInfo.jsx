@@ -1,3 +1,4 @@
+import { User } from 'lucide-react'
 import { useSermon } from '../../context/SermonContext'
 import { SectionWrapper } from '../layout/SectionWrapper'
 import { TextInput } from '../ui/TextInput'
@@ -11,7 +12,7 @@ export function PreacherInfo() {
   const set = (field, value) => dispatch({ type: 'SET_PREACHER_FIELD', field, value })
 
   return (
-    <SectionWrapper id="preacher-info" title="Informações do Pregador" icon="👤">
+    <SectionWrapper id="preacher-info" title="Informações do Pregador" icon={User}>
       <div className={styles.grid2}>
         <TextInput label="Nome do Pregador" value={preacherInfo.preacherName} onChange={v => set('preacherName', v)} placeholder="Ex: Rev. João da Silva" />
         <TextInput label="Igreja / Congregação" value={preacherInfo.church ?? ''} onChange={v => set('church', v)} placeholder="Ex: Igreja Batista Central" />

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Pin } from 'lucide-react'
 import { useSermon } from '../../context/SermonContext'
 import { SectionWrapper } from '../layout/SectionWrapper'
 import { AddButton } from '../ui/AddButton'
@@ -13,11 +14,7 @@ export function MainPoints() {
 
   const addPoint = () => dispatch({ type: 'ADD_MAIN_POINT', point: createMainPoint() })
 
-  const handleDragOver = (e, index) => {
-    e.preventDefault()
-    setDragOverIndex(index)
-  }
-
+  const handleDragOver = (e, index) => { e.preventDefault(); setDragOverIndex(index) }
   const handleDrop = (e, toIndex) => {
     e.preventDefault()
     const fromIndex = parseInt(e.dataTransfer.getData('text/plain'), 10)
@@ -26,11 +23,10 @@ export function MainPoints() {
     }
     setDragOverIndex(null)
   }
-
   const handleDragLeave = () => setDragOverIndex(null)
 
   return (
-    <SectionWrapper id="main-points" title="Pontos Principais" icon="📌">
+    <SectionWrapper id="main-points" title="Pontos Principais" icon={Pin}>
       {mainPoints.length === 0 && (
         <p className={styles.empty}>Nenhum ponto adicionado ainda. Clique em "+ Adicionar Ponto" para começar.</p>
       )}

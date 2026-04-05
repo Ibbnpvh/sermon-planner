@@ -1,38 +1,37 @@
 .panel {
-  margin-bottom: 16px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+  background: var(--bg-card);
   overflow: hidden;
-  background: var(--off-white);
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 12px;
+  padding: 12px 14px 11px;
   background: linear-gradient(135deg, var(--navy) 0%, #253460 100%);
   cursor: pointer;
   user-select: none;
+  border-bottom: 2px solid rgba(201, 168, 76, 0.4);
 }
 
 .headerLabel {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   font-family: var(--font-heading);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--off-white);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
 }
 
 .count {
-  background: rgba(201, 168, 76, 0.3);
+  background: rgba(201, 168, 76, 0.25);
   color: var(--gold);
   border-radius: 10px;
   padding: 1px 7px;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
   font-family: var(--font-ui);
 }
@@ -40,80 +39,75 @@
 .toggleBtn {
   background: none;
   border: none;
-  color: var(--gold);
-  font-size: 0.65rem;
+  color: rgba(201, 168, 76, 0.7);
   cursor: pointer;
   padding: 2px 4px;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Search */
 .searchRow {
   display: flex;
   align-items: center;
-  margin: 8px 8px 4px;
+  margin: 8px 10px 4px;
   position: relative;
 }
 
 .searchInput {
   width: 100%;
-  padding: 5px 28px 5px 8px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  padding: 6px 26px 6px 10px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
   font-size: 0.75rem;
   font-family: var(--font-ui);
-  background: var(--white);
+  background: var(--bg-light);
   color: var(--navy);
   outline: none;
   box-sizing: border-box;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, background 0.15s;
 }
 
 .searchInput:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.15);
+  background: var(--white);
+  box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.12);
 }
 
 .searchInput::placeholder {
-  color: var(--gray);
-  opacity: 0.7;
+  color: var(--gray-light);
 }
 
 .clearSearch {
   position: absolute;
-  right: 6px;
+  right: 7px;
   background: none;
   border: none;
   color: var(--gray);
   font-size: 0.9rem;
   cursor: pointer;
-  padding: 0 2px;
   line-height: 1;
+  padding: 0;
 }
 
-.clearSearch:hover {
-  color: var(--navy);
-}
+.clearSearch:hover { color: var(--navy); }
 
-.empty {
-  text-align: center;
-  padding: 10px 8px;
-  font-size: 0.75rem;
-  color: var(--gray);
-  font-family: var(--font-ui);
-  font-style: italic;
-}
-
+/* New button */
 .newBtn {
-  display: block;
-  width: calc(100% - 16px);
-  margin: 10px 8px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: calc(100% - 20px);
+  margin: 4px 10px 6px;
   padding: 7px;
   background: transparent;
-  border: 1.5px dashed var(--gold);
-  border-radius: 6px;
+  border: 1.5px dashed rgba(201, 168, 76, 0.4);
+  border-radius: var(--radius-sm);
   color: var(--navy);
   font-family: var(--font-ui);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition);
@@ -121,34 +115,46 @@
 }
 
 .newBtn:hover {
-  background: rgba(201, 168, 76, 0.1);
+  background: rgba(201, 168, 76, 0.08);
   border-style: solid;
+  border-color: var(--gold);
+  color: #6b4f00;
 }
 
+/* List */
 .list {
   list-style: none;
   margin: 0;
-  padding: 4px 6px 8px;
-  max-height: 280px;
+  padding: 2px 6px 8px;
+  max-height: 260px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
+.empty {
+  text-align: center;
+  padding: 10px 8px;
+  font-size: 0.73rem;
+  color: var(--gray);
+  font-family: var(--font-ui);
+  font-style: italic;
+}
+
 .item {
   display: flex;
   align-items: center;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   transition: background var(--transition);
 }
 
 .item:hover {
-  background: rgba(201, 168, 76, 0.08);
+  background: rgba(26, 39, 68, 0.04);
 }
 
 .item.active {
-  background: rgba(201, 168, 76, 0.15);
+  background: rgba(201, 168, 76, 0.1);
   border-left: 3px solid var(--gold);
 }
 
@@ -167,9 +173,9 @@
 
 .itemTitle {
   font-family: var(--font-ui);
-  font-size: 0.78rem;
+  font-size: 0.77rem;
   font-weight: 600;
-  color: var(--navy);
+  color: var(--text-dark);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -177,12 +183,12 @@
 }
 
 .active .itemTitle {
-  color: #a07800;
+  color: #7a5400;
 }
 
 .itemDate {
   font-family: var(--font-ui);
-  font-size: 0.67rem;
+  font-size: 0.66rem;
   color: var(--gray);
 }
 
@@ -205,20 +211,19 @@
   height: 22px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 0.75rem;
-  color: var(--gray);
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--gray);
   transition: all var(--transition);
 }
 
 .actionBtn:hover {
-  background: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.07);
   color: var(--navy);
 }
 
-.actionBtn.danger:hover {
-  background: rgba(176, 64, 64, 0.12);
+.danger:hover {
+  background: rgba(176, 64, 64, 0.1);
   color: #b04040;
 }

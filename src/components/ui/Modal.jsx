@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { X } from 'lucide-react'
 import styles from './Modal.module.css'
 
 export function Modal({ isOpen, onClose, title, children, wide = false }) {
@@ -19,7 +20,9 @@ export function Modal({ isOpen, onClose, title, children, wide = false }) {
       >
         <div className={styles.header}>
           <h2 className={styles.title}>{title}</h2>
-          <button className={styles.close} onClick={onClose} aria-label="Fechar">×</button>
+          <button className={styles.close} onClick={onClose} aria-label="Fechar">
+            <X size={16} strokeWidth={2.5} />
+          </button>
         </div>
         <div className={styles.body}>{children}</div>
       </div>

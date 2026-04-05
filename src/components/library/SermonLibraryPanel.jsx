@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Library, Plus, Copy, Trash2, Search, ChevronDown, ChevronRight } from 'lucide-react'
 import { useLibrary } from '../../context/LibraryContext'
 import { TemplatePickerModal } from './TemplatePickerModal'
 import styles from './SermonLibraryPanel.module.css'
@@ -25,19 +26,22 @@ export function SermonLibraryPanel() {
     <div className={styles.panel}>
       <div className={styles.header} onClick={() => setCollapsed(c => !c)}>
         <span className={styles.headerLabel}>
-          <span>📚</span> Meus Sermões
+          <Library size={13} />
+          Meus Sermões
           <span className={styles.count}>{sermons.length}</span>
         </span>
         <button className={styles.toggleBtn} title={collapsed ? 'Expandir' : 'Recolher'}>
-          <span style={{ display: 'inline-block', transition: 'transform 0.2s', transform: collapsed ? 'rotate(-90deg)' : 'none', fontSize: '0.6rem' }}>▼</span>
+          {collapsed ? <ChevronRight size={13} /> : <ChevronDown size={13} />}
         </button>
       </div>
 
       {!collapsed && (
         <>
           <div className={styles.searchRow}>
+            <Search size={12} style={{ position: 'absolute', left: 20, color: 'var(--gray-light)', pointerEvents: 'none' }} />
             <input
               className={styles.searchInput}
+              style={{ paddingLeft: '26px' }}
               type="text"
               placeholder="Buscar sermão..."
               value={search}
@@ -50,7 +54,8 @@ export function SermonLibraryPanel() {
           </div>
 
           <button className={styles.newBtn} onClick={() => setShowTemplates(true)}>
-            + Novo Sermão
+            <Plus size={13} />
+            Novo Sermão
           </button>
 
           <ul className={styles.list}>
@@ -77,12 +82,12 @@ export function SermonLibraryPanel() {
                     className={styles.actionBtn}
                     onClick={() => duplicateSermon(s.id)}
                     title="Duplicar"
-                  >⧉</button>
+                  ><Copy size={11} /></button>
                   <button
                     className={`${styles.actionBtn} ${styles.danger}`}
                     onClick={() => removeSermon(s.id)}
                     title="Excluir"
-                  >✕</button>
+                  ><Trash2 size={11} /></button>
                 </div>
               </li>
             ))}
