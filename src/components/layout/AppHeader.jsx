@@ -4,15 +4,16 @@ import { useSermon } from '../../context/SermonContext'
 import { SermonDocument } from '../pdf/SermonDocument'
 import { PDFPreviewModal } from '../pdf/PDFPreviewModal'
 import { SermonOutline } from '../outline/SermonOutline'
+import { PresentationMode } from '../presentation/PresentationMode'
 import { useSermonStats } from '../../hooks/useSermonStats'
 import { exportSermonJSON } from '../../utils/exportImport'
-import { createInitialState } from '../../constants/initialState'
 import styles from './AppHeader.module.css'
 
 export function AppHeader() {
   const { state, dispatch } = useSermon()
   const [previewOpen, setPreviewOpen] = useState(false)
   const [outlineOpen, setOutlineOpen] = useState(false)
+  const [presentMode, setPresentMode] = useState(false)
 
   const hasTitle = Boolean(state.titleTheme?.sermonTitle?.trim())
   const stats = useSermonStats(state)
@@ -46,6 +47,16 @@ export function AppHeader() {
               <span className={styles.statsWords}>{stats.words.toLocaleString('pt-BR')} palavras</span>
             </span>
           )}
+
+          <button
+            type="button"
+            className={styles.btnPresent}
+            onClick={() => setPresentMode(true)}
+            disabled={!hasTitle}
+            title={!hasTitle ? 'Preencha o título do sermão para apresentar' : 'Modo Apresentação — tela cheia'}
+          >
+            <span>▶</span> Apresentar
+          </button>
 
           <button
             type="button"
@@ -118,6 +129,13 @@ export function AppHeader() {
       <SermonOutline
         isOpen={outlineOpen}
         onClose={() => setOutlineOpen(false)}
+        state={state}
+        stats={stats}
+      />
+
+      <PresentationMode
+        isOpen={presentMode}
+        onClose={() => setPresentMode(false)}
         state={state}
         stats={stats}
       />

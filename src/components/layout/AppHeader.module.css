@@ -90,6 +90,24 @@
   box-shadow: 0 4px 12px rgba(201, 168, 76, 0.4);
 }
 
+.btnPresent {
+  background: linear-gradient(135deg, #1a5c38, #1e7044);
+  color: #b8f5d0;
+  border: 1.5px solid rgba(100, 220, 140, 0.4);
+}
+
+.btnPresent:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1e7044, #22854f);
+  border-color: rgba(100, 220, 140, 0.7);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(30, 112, 68, 0.45);
+}
+
+.btnPresent:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .btnOutline {
   background: transparent;
   color: var(--gold);
