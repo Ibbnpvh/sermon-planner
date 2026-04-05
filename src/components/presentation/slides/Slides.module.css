@@ -1,0 +1,191 @@
+/* ─── Common slide container ────────────────────────────────────── */
+.slide {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 80px;
+  box-sizing: border-box;
+}
+
+/* ─── Title Slide ────────────────────────────────────────────────── */
+.titleSlideContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 900px;
+  gap: 20px;
+}
+
+.centralTheme {
+  color: rgba(201, 168, 76, 0.75);
+  font-family: var(--font-body, Georgia, serif);
+  font-style: italic;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.sermonTitle {
+  color: #c9a84c;
+  font-family: var(--font-heading, Georgia, serif);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0;
+  text-shadow: 0 2px 20px rgba(201, 168, 76, 0.3);
+}
+
+.verseBlock {
+  border-left: 4px solid rgba(201, 168, 76, 0.6);
+  padding: 12px 24px;
+  text-align: left;
+  max-width: 640px;
+  margin: 8px 0;
+}
+
+.verseText {
+  color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+  line-height: 1.6;
+  margin: 0 0 8px;
+  font-family: var(--font-body, Georgia, serif);
+}
+
+.verseRef {
+  color: rgba(201, 168, 76, 0.85);
+  font-weight: 600;
+  text-align: right;
+  margin: 0;
+  font-family: var(--font-heading, Georgia, serif);
+}
+
+.preacherMeta {
+  color: rgba(255, 255, 255, 0.4);
+  margin: 8px 0 0;
+  letter-spacing: 0.04em;
+}
+
+/* ─── Point Slide ────────────────────────────────────────────────── */
+.pointSlideContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 900px;
+  width: 100%;
+  gap: 24px;
+}
+
+.pointBadge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(201, 168, 76, 0.7);
+}
+
+.pointNum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 2px solid rgba(201, 168, 76, 0.6);
+  border-radius: 50%;
+  color: #c9a84c;
+  font-family: var(--font-heading, Georgia, serif);
+  font-weight: 700;
+  font-size: 1em;
+}
+
+.pointOf {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.9em;
+}
+
+.pointTitle {
+  color: #ffffff;
+  font-family: var(--font-heading, Georgia, serif);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.subList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.subItem {
+  color: rgba(255, 255, 255, 0.8);
+  padding-left: 28px;
+  position: relative;
+  line-height: 1.45;
+  font-family: var(--font-body, Georgia, serif);
+}
+
+.subItem::before {
+  content: '▸';
+  color: #c9a84c;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.refList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-left: 3px solid rgba(201, 168, 76, 0.4);
+  padding-left: 16px;
+}
+
+.refItem {
+  color: rgba(201, 168, 76, 0.75);
+  font-style: italic;
+  margin: 0;
+  font-family: var(--font-body, Georgia, serif);
+  line-height: 1.4;
+}
+
+/* ─── Text Slide (intro / conclusion / prayer) ───────────────────── */
+.textSlideContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 840px;
+  width: 100%;
+  gap: 20px;
+}
+
+.slideLabel {
+  color: rgba(201, 168, 76, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  margin: 0;
+  font-family: var(--font-heading, Georgia, serif);
+}
+
+.bodyText {
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.65;
+  margin: 0;
+  font-family: var(--font-body, Georgia, serif);
+}
+
+.highlightText {
+  color: #ffffff;
+  line-height: 1.55;
+  margin: 0;
+  font-family: var(--font-heading, Georgia, serif);
+  font-weight: 600;
+  padding: 16px 20px;
+  border-left: 4px solid #c9a84c;
+  background: rgba(201, 168, 76, 0.08);
+  border-radius: 0 8px 8px 0;
+}
